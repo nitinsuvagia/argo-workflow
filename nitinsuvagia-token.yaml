@@ -1,0 +1,9 @@
+# nitinsuvagia-token.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: nitinsuvagia-token
+  namespace: argo
+  annotations:
+    kubernetes.io/service-account.name: nitinsuvagia
+type: kubernetes.io/service-account-token
