@@ -1,0 +1,27 @@
+# workflow-pv.yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: choice-wf-pv-1
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: manual
+  hostPath:
+    path: /app/data
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: choice-wf-pvc-1
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: manual
