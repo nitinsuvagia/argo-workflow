@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  name: pod-with-pvc-workflow
+spec:
+  entrypoint: main
+  templates:
+  - name: main
+    steps:
+    - - name: create-pod
+        template: create-pod-template
+
+  - name: create-pod-template
+    resource:
+      action: create
+      manifest: |
+        apiVersion: v1
+        kind: Pod
+        metadata:
+          name: example-pod
+        spec:
+          containers:
+          - name: example-container
+            image: nginx:latest
+            volumeMounts:
+            - mountPath: /usr/share/nginx/html
+              name: choice-wf-storage
+          volumes:
+          - name: choice-wf-storage
+            persistentVolumeClaim:
+              claimName: choice-wf-pvc-1
